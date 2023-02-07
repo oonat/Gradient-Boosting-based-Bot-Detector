@@ -80,9 +80,6 @@ def test(cat_ids, X_train, y_train, X_test, y_test):
 
 
 def main():
-	with open('datasets/usernames.txt', 'r') as f:
-		username_list = [line.strip() for line in f]
-
 	dataset_list = [
 		'botometer-feedback-2019',
 		'botwiki-2019',
@@ -96,7 +93,7 @@ def main():
 		'verified-2019',
 	]
 
-	data = Dataset(username_list=username_list, path_list=dataset_list)
+	data = Dataset(path_list=dataset_list)
 
 	X_train, X_test, y_train, y_test = \
 		train_test_split(data.X, data.y, 

@@ -4,7 +4,7 @@ from utils import *
 
 
 class Dataset:
-	def __init__(self, username_list, json_path = None, csv_path = None, path_list = None):
+	def __init__(self, json_path = None, csv_path = None, path_list = None):
 		if path_list:
 			self.frame = self._merge_datasets(path_list)
 		else:
@@ -27,11 +27,8 @@ class Dataset:
 				'followers_friends_ratio',
 				'screen_name_length',
 				'description_length',
-				'screen_name_likelihood',
 				'label',
 			]
-
-		self.lm = create_language_model(username_list)
 
 		self.frame = self._process_frame(self.frame)
 
@@ -99,6 +96,5 @@ class Dataset:
 
 		frame['screen_name_length'] = frame.apply(lambda x: len(x['screen_name']), axis=1)
 		frame['description_length'] = frame.apply(lambda x: len(x['description']), axis=1)
-		frame['screen_name_likelihood'] = frame.apply(lambda x: calculate_likelihood(self.lm, x['screen_name']), axis=1)
 
 		return frame[self.feature_list]
